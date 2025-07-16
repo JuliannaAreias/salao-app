@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Início - Sistema de Agendamento</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Georgia', serif;
+            background-color: #3b251b;
+            color: white;
+            display: flex;
+            flex-wrap: wrap;
+            min-height: 100vh;
+        }
+
+        .left {
+            flex: 1 1 50%;
+            background-color: #3b251b;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+        }
+
+        .logo-grande {
+            width: 320px;
+            max-width: 90%;
+            border-radius: 20px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .right {
+            flex: 1 1 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.2em;
+            margin-bottom: 10px;
+        }
+
+        .sub {
+            font-size: 1em;
+            color: #e5cba8;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            background-color: #d4a373;
+            color: #3b251b;
+            padding: 14px 28px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1em;
+            font-weight: bold;
+            text-decoration: none;
+            margin: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #bc8a5f;
+        }
+
+        footer {
+            margin-top: 40px;
+            font-size: 0.8em;
+            color: #ccc;
+        }
+
+        @media (max-width: 768px) {
+            .left, .right {
+                flex: 1 1 100%;
+            }
+
+            h1 {
+                font-size: 1.6em;
+            }
+
+            .btn {
+                width: 80%;
+            }
+
+            .logo-grande {
+                width: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Lado esquerdo com a logotipo -->
+    <div class="left">
+        <img src="{{ url_for('static', filename='logo_juther.png') }}" alt="Logo JuTher Beauty" class="logo-grande">
+    </div>
+
+    <!-- Lado direito com texto e botões -->
+    <div class="right">
+        <h1>Bem-vindo ao Sistema de<br>Agendamento do Salão<br>JuTher Beauty</h1>
+        <p class="sub">Escolha uma opção para continuar:</p>
+
+        <a class="btn" href="/LoginCliente">Sou Cliente</a>
+        <a class="btn" href="/Profissional">Sou Profissional</a>
+
+        <footer>
+            TET00312 – Aplicações em Redes<br>
+            Desenvolvido por Esther Botelho & Julianna Areias
+        </footer>
+    </div>
+</body>
+</html>

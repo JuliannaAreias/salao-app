@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Agendar Horário - JuTher Beauty</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Georgia', serif;
+            background-color: #3b251b;
+            color: white;
+            display: flex;
+            height: 100vh;
+        }
+
+        .left {
+            width: 50%;
+            background: url('{{ url_for("static", filename="apresentacao.jpg") }}') no-repeat center center;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .logo-grande {
+            width: 280px;
+            max-width: 90%;
+            border-radius: 20px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .right {
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+        }
+
+        h1 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        label {
+            margin-top: 10px;
+            margin-bottom: 5px;
+            color: #e5cba8;
+        }
+
+        input, select, button {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        button {
+            margin-top: 20px;
+            background-color: #d4a373;
+            color: #3b251b;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #bc8a5f;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+
+            .left, .right {
+                width: 100%;
+                height: auto;
+            }
+
+            .logo-grande {
+                width: 200px;
+                margin: 20px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="left">
+        <img src="{{ url_for('static', filename='logo_juther.png') }}" alt="Logo JuTher Beauty" class="logo-grande">
+    </div>
+
+    <div class="right">
+        <h1>Agendar Horário</h1>
+        <form method="POST">
+            <label for="nome">Nome:</label>
+            <input type="text" name="nome" value="{{ nome_cliente }}" required readonly>
+
+            <label for="servico">Serviço:</label>
+            <select name="servico" id="servico" onchange="atualizarProfissionais()" required>
+                <option value="" disabled selected>Selecione um serviço</option>
+                {% for s in servicos %}
+                    <option value="{{ s }}">{{ s }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="profissional">Profissional:</label>
+            <select name="profissional" id="profissional" required>
+                <option disabled selected>Selecione um serviço primeiro</option>
+            </select>
+
+            <label for="data">Data:</label>
+            <input type="date" name="data" required>
+
+            <label for="horario">Horário:</label>
+            <input type="time" name="horario" required>
+
+            <button type="submit">Agendar</button>
+        </form>
+    </div>
+
+    <script>
+        const profissionaisPorServico = {{ profissionais_por_servico | tojson | safe }};
+
+        function atualizarProfissionais() {
+            const servicoSelecionado = document.getElementById('servico').value;
+            const selectProfissional = document.getElementById('profissional');
+
+            // Limpa as opções antigas
+            selectProfissional.innerHTML = "";
+
+            if (profissionaisPorServico[servicoSelecionado]) {
+                profissionaisPorServico[servicoSelecionado].forEach(nome => {
+                    const option = document.createElement("option");
+                    option.value = nome;
+                    option.textContent = nome;
+                    selectProfissional.appendChild(option);
+                });
+            } else {
+                const option = document.createElement("option");
+                option.textContent = "Nenhum profissional disponível";
+                option.disabled = true;
+                selectProfissional.appendChild(option);
+            }
+        }
+    </script>
+</body>
+</html>

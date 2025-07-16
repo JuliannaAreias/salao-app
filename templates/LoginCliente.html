@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Login do Cliente</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Georgia', serif;
+            background-color: #3b251b;
+            color: white;
+            display: flex;
+            height: 100vh;
+        }
+
+        .left {
+            width: 50%;
+            background: url('{{ url_for("static", filename="apresentacao.jpg") }}') no-repeat center center;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .logo-grande {
+            width: 280px;
+            max-width: 90%;
+            border-radius: 20px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .right {
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+        }
+
+        h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        form {
+            width: 100%;
+            max-width: 320px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-top: 15px;
+            margin-bottom: 5px;
+            color: #e5cba8;
+            font-weight: bold;
+        }
+
+        input {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        button {
+            margin-top: 25px;
+            background-color: #d4a373;
+            color: #3b251b;
+            font-weight: bold;
+            font-size: 16px;
+            padding: 12px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #bc8a5f;
+        }
+
+        .secondary-button {
+            margin-top: 15px;
+            background-color: transparent;
+            border: 2px solid #d4a373;
+            color: #d4a373;
+            border-radius: 30px;
+            padding: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .secondary-button:hover {
+            background-color: #d4a373;
+            color: #3b251b;
+            border-color: #d4a373;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+
+            .left, .right {
+                width: 100%;
+                height: auto;
+            }
+
+            .logo-grande {
+                width: 200px;
+                margin: 20px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Lado esquerdo com a logotipo -->
+    <div class="left">
+        <img src="{{ url_for('static', filename='logo_juther.png') }}" alt="Logo JuTher Beauty" class="logo-grande">
+    </div>
+
+    <!-- Lado direito com formulário de login -->
+    <div class="right">
+        <h1><strong>Login</strong></h1>
+
+        <form action="/LoginCliente" method="POST">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="senha">Senha:</label>
+            <input type="password" id="senha" name="senha" required>
+
+            <button type="submit">Entrar</button>
+        </form>
+
+        <form action="/CadastrarCliente" method="GET">
+            <button type="submit" class="secondary-button">Cadastrar</button>
+        </form>
+    </div>
+</body>
+</html>
